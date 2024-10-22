@@ -11,6 +11,10 @@ public class Departamento {
         this.descripcion = descripcion;
     }
 
+    public Departamento() {
+        //TODO Auto-generated constructor stub
+    }
+
     public String getCod_departamento() {
         return cod_departamento;
     }

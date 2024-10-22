@@ -1,3 +1,4 @@
+package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,8 +17,9 @@ public abstract class JdbcDao<T,S> implements Dao<T,S> {
 
     @Override
     public void create(T model) {
-        try (Connection con = getConnection()){
-            PreparedStatement ps = con.prepareStatement(getInsertStatement(model, con));
+        try (Connection con = getConnection();
+            PreparedStatement ps = getInsertStatement(model, con)){
+
             int numFilas = ps.executeUpdate();
             
             if (numFilas > 0) {
@@ -29,12 +31,12 @@ public abstract class JdbcDao<T,S> implements Dao<T,S> {
             e.printStackTrace();
         }
     }
-    protected abstract String getInsertStatement(T model, Connection con) throws SQLException;
+    protected abstract PreparedStatement getInsertStatement(T model, Connection con) throws SQLException;
 
     @Override
     public T read(S id) {
         try (Connection con = getConnection();
-        PreparedStatement st = con.prepareStatement(getReadStatement(id,con));
+        PreparedStatement st = getReadStatement(id,con);
         ResultSet rs = st.executeQuery()){
             
             if (rs.next()) {
@@ -46,7 +48,7 @@ public abstract class JdbcDao<T,S> implements Dao<T,S> {
         return null;
     }
     protected abstract T getModelFromResultSet(ResultSet rs) throws SQLException;
-    protected abstract String getReadStatement(S id, Connection con) throws SQLException;
+    protected abstract PreparedStatement getReadStatement(S id, Connection con) throws SQLException;
 
     @Override
     public void update(T model) {
