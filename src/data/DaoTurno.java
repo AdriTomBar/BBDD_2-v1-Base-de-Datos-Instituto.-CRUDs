@@ -11,7 +11,7 @@ public class DaoTurno extends JdbcDao<Turno,String>{
     private final String SQL_INSERT = "INSERT INTO turno values(?,?)";
     private final String SQL_READ = "SELECT * FROM turno WHERE cod_turno = ?";
     private final String SQL_DELETE = "DELETE FROM turno WHERE cod_turno = ?";
-    private final String SQL_UPDATE = "UPDATE turno set cod_turno=?,horario=?";
+    private final String SQL_UPDATE = "UPDATE turno set horario=? where cod_turno=?";
 
     @Override
     protected PreparedStatement getInsertStatement(Turno model, Connection con) throws SQLException {

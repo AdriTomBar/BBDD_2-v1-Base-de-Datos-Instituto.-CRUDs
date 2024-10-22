@@ -45,6 +45,10 @@ public class Alumno {
         this.cod_departamento = cod_departamento;
     }
 
+    public Alumno() {
+        //TODO Auto-generated constructor stub
+    }
+
     public String getNrp() {
         return nrp;
     }
