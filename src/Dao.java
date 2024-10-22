@@ -1,4 +1,3 @@
-package data.models;
 
 public interface Dao <T, S> {
     public void create(T model);
