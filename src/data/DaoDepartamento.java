@@ -12,6 +12,7 @@ public class DaoDepartamento extends JdbcDao<Departamento, String>{
     private static String SQL_INSERT = "Insert into departamento values(?,?,?)";
     private static String SQL_READ = "Select * from departamento where cod_departamento = ?";
     private static String SQL_DELETE = " DELETE from departamento where cod_departamento = ?";
+    
     @Override
     protected PreparedStatement getInsertStatement(Departamento model, Connection con) throws SQLException {
         PreparedStatement ps = con.prepareStatement(SQL_INSERT);

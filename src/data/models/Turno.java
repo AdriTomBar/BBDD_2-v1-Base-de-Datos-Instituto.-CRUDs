@@ -9,6 +9,10 @@ public class Turno {
         this.horario = horario;
     }
 
+    public Turno() {
+        //TODO Auto-generated constructor stub
+    }
+
     public String getCod_turno() {
         return cod_turno;
     }

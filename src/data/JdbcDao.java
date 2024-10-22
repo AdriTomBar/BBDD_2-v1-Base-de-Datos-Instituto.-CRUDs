@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public abstract class JdbcDao<T,S> implements Dao<T,S> {
 
-    String URL = "jdbc:mysql://localhost:3306/instit";
+    String URL = "jdbc:mysql://localhost:3306/instituto";
     String USER = "adrian";
     String PASSWORD = "mysqlAdmin";
 
