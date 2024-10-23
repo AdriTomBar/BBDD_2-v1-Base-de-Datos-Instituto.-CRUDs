@@ -9,6 +9,10 @@ public class Edificio {
         this.nombre = nombre;
     }
 
+    public Edificio() {
+        //TODO Auto-generated constructor stub
+    }
+
     public String getCod_edificio() {
         return cod_edificio;
     }
