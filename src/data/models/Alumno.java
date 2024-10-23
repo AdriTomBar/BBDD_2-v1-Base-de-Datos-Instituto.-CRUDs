@@ -3,7 +3,7 @@ package data.models;
 import java.sql.Date;
 
 public class Alumno {
-    private String nrp;
+    private String nre;
     private String nombre;
     private String apellido1;
     private String apellido2;
@@ -20,12 +20,12 @@ public class Alumno {
     private String tlfn_movil;
     private String email;
     private String fecha_nac;
-    private String cod_departamento;
+    private String tutor;
     
-    public Alumno(String nrp, String nombre, String apellido1, String apellido2, String dni, String tipo_via,
+    public Alumno(String nre, String nombre, String apellido1, String apellido2, String dni, String tipo_via,
             String nombre_via, String numero, String escalera, String piso, String puerta, String cp, String pais,
-            String tlfn_fijo, String tlfn_movil, String email, String fecha_nac, String cod_departamento) {
-        this.nrp = nrp;
+            String tlfn_fijo, String tlfn_movil, String email, String fecha_nac, String tutor) {
+        this.nre = nre;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
@@ -42,7 +42,7 @@ public class Alumno {
         this.tlfn_movil = tlfn_movil;
         this.email = email;
         this.fecha_nac = fecha_nac;
-        this.cod_departamento = cod_departamento;
+        this.tutor = tutor;
     }
 
     public Alumno() {
@@ -50,12 +50,12 @@ public class Alumno {
     }
 
 
-    public String getNrp() {
-        return nrp;
+    public String getNre() {
+        return nre;
     }
 
-    public void setNrp(String nrp) {
-        this.nrp = nrp;
+    public void setNre(String nre) {
+        this.nre = nre;
     }
 
     public String getNombre() {
@@ -186,21 +186,21 @@ public class Alumno {
         this.fecha_nac = fecha_nac;
     }
 
-    public String getCod_departamento() {
-        return cod_departamento;
+    public String gettutor() {
+        return tutor;
     }
 
-    public void setCod_departamento(String cod_departamento) {
-        this.cod_departamento = cod_departamento;
+    public void settutor(String tutor) {
+        this.tutor = tutor;
     }
 
     @Override
     public String toString(){
-        return "Alumno [nrp=" + nrp + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
+        return "Alumno [Nre=" + nre + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
                 + ", dni=" + dni + ", tipo_via=" + tipo_via + ", nombre_via=" + nombre_via + ", numero=" + numero
                 + ", escalera=" + escalera + ", piso=" + piso + ", puerta=" + puerta + ", cp=" + cp + ", pais=" + pais
                 + ", tlfn_fijo=" + tlfn_fijo + ", tlfn_movil=" + tlfn_movil + ", email=" + email + ", fecha_nac="
-                + fecha_nac + ", cod_departamento=" + cod_departamento + "]";
+                + fecha_nac + ", tutor=" + tutor + "]";
     }
 
 	
