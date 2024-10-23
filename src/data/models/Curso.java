@@ -12,6 +12,11 @@ public class Curso {
     }
 
     
+    public Curso() {
+        //TODO Auto-generated constructor stub
+    }
+
+
     public String getCod_curso() {
         return cod_curso;
     }
