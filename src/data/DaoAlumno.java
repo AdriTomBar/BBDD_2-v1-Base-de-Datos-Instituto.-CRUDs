@@ -101,7 +101,7 @@ public class DaoAlumno extends JdbcDao<Alumno, String> {
     }
 
     public Alumno crearAlumno() {
-        try (Scanner sc = new Scanner(System.in)) {
+        Scanner sc = new Scanner(System.in);
             Alumno alumno = new Alumno();
             System.out.println("Intruduzca un nrp");
             alumno.setNre(sc.next());
@@ -145,7 +145,6 @@ public class DaoAlumno extends JdbcDao<Alumno, String> {
             alumno.settutor(sc.next());
             return alumno;
         }
-    }
 
     private boolean comprobarFecha(String fecha) {
         return fecha.matches("\\d{4}-\\d{2}-\\d{2}");

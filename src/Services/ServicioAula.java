@@ -1,6 +1,5 @@
 package Services;
 
-import data.Dao;
 import data.DaoAula;
 import data.models.Aula;
 
@@ -8,7 +7,7 @@ public class ServicioAula implements Servicio<Aula,String>{
 
     @Override
     public void create(Aula objeto) {
-        if (evalidarDB(objeto) == true) {
+        if (validarDB(objeto) == true) {
             DaoAula daoAula = new DaoAula();
             daoAula.create(objeto);
         } else {
@@ -18,7 +17,7 @@ public class ServicioAula implements Servicio<Aula,String>{
 
     @Override
     public Aula read(String identificador) {
-        if (identificador.length() > 0 && (evalidarDB(identificador)==false)) {
+        if (identificador.length() > 0 && (validarDB(identificador)==false)) {
             DaoAula daoAula = new DaoAula();
             return daoAula.read(identificador);
         }
@@ -27,7 +26,7 @@ public class ServicioAula implements Servicio<Aula,String>{
 
     @Override
     public void update(Aula objeto) {
-        if (evalidarDB(objeto) == false) {
+        if (validarDB(objeto) == false) {
             DaoAula daoAula = new DaoAula();
             daoAula.update(objeto);
         } else {
@@ -37,7 +36,7 @@ public class ServicioAula implements Servicio<Aula,String>{
 
     @Override
     public void delete(String identificador) {
-        if (identificador.length() > 0 && (evalidarDB(identificador)==false)) {
+        if (identificador.length() > 0 && (validarDB(identificador)==false)) {
             DaoAula daoAula = new DaoAula();
             daoAula.delete(identificador);
         } else {
@@ -45,18 +44,19 @@ public class ServicioAula implements Servicio<Aula,String>{
         }
     }
 
-    private Boolean evalidarDB(Aula aula){
+    private Boolean validarDB(Aula aula){
         DaoAula daoAula = new DaoAula();
         if (daoAula.read(aula.getNum_aula()) != null) {
-            throw new IllegalArgumentException("El aula ya existe en la base de datos");
+            System.out.println("El aula ya existe en la base de datos");
+            
         }
         return false;
     }
 
-    private Boolean evalidarDB(String aula){
+    private Boolean validarDB(String aula){
         DaoAula daoAula = new DaoAula();
         if (daoAula.read(aula) != null) {
-            throw new IllegalArgumentException("El aula ya existe en la base de datos");
+            System.out.println("El aula ya existe en la base de datos");
         }
         return false;
     }

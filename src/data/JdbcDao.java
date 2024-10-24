@@ -28,7 +28,7 @@ public abstract class JdbcDao<T,S> implements Dao<T,S> {
                 System.out.println("No se ha insertado ninguna fila");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
     protected abstract PreparedStatement getInsertStatement(T model, Connection con) throws SQLException;

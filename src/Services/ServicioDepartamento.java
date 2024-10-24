@@ -3,14 +3,11 @@ package Services;
 import data.DaoDepartamento;
 import data.models.Departamento;
 
+
 public class ServicioDepartamento implements Servicio<Departamento, String> {
 
-	private DaoDepartamento daoDepartamento;
-	
-	public ServicioDepartamento() {
-		this.daoDepartamento = daoDepartamento;
-	}
-	
+	private DaoDepartamento daoDepartamento = new DaoDepartamento();
+
 	@Override
 	public void create(Departamento objeto) {
 		if ( validarDepartamento(objeto) && validarDB(objeto) == true) {
