@@ -5,7 +5,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Services.Servicio;
+import Services.ServicioAlumno;
+import Services.ServicioAula;
+import Services.ServicioCurso;
 import Services.ServicioDepartamento;
+import Services.ServicioEdificio;
+import Services.ServicioTurno;
 import data.Dao;
 import data.DaoAlumno;
 import data.DaoAula;
@@ -23,6 +28,14 @@ public class Main {
     public final static String PASSWORD = "mysqlAdmin";
 
     public static void main(String[] args) {
+        ServicioAlumno servicioAlumno = new ServicioAlumno();
+        ServicioEdificio servicioEdificio = new ServicioEdificio();
+        ServicioAula servicioAula = new ServicioAula();
+        ServicioDepartamento servicioDepartamento = new ServicioDepartamento();
+        ServicioCurso servicioCurso = new ServicioCurso();
+        ServicioTurno servicioTurno = new ServicioTurno();
+        
+
         try (Scanner sc = new Scanner(System.in)) {
             DaoAlumno daoAlumno = new DaoAlumno();
             probarConexion();
@@ -56,31 +69,23 @@ public class Main {
                         int eleccionAlumno = sc.nextInt();
 
                         switch (eleccionAlumno) {
-
+                            
                             case 1:
                                 System.out.println("Insertar alumno");
-                                Alumno alumno = daoAlumno.crearAlumno();
-                                daoAlumno.create(alumno);
+                                servicioAlumno.create(daoAlumno.crearAlumno());
                                 break;
                             case 2:
                                 System.out.println("Leer alumno");
                                 System.out.println("Introduzca el nrp del alumno a buscar");
-                                String nrp = sc.next();
-                                System.out.println(daoAlumno.read(nrp));
+                                System.out.println(servicioAlumno.read(sc.next()));
                                 break;
                             case 3:
                                 System.out.println("Actualizar alumno");
-                                System.out.println("Introduzca los datos del alumno a actualizar");
-                                Alumno alumnoUpdate = daoAlumno.crearAlumno();
-                                daoAlumno.update(alumnoUpdate);
-                                System.out.println("----Alumno actualizado----");
-                                System.out.println(alumnoUpdate);
+                                servicioAlumno.update(daoAlumno.crearAlumno());
                                 break;
                             case 4:
                                 System.out.println("Eliminar alumno");
-                                System.err.println("Introduzca el nre del alumno a eliminar");
-                                String nreDelete = sc.next();
-                                daoAlumno.delete(nreDelete);
+                                servicioAlumno.delete(sc.next());
                                 break;
                             default:
                                 System.out.println("Opción no válida");
@@ -91,7 +96,6 @@ public class Main {
                     case 2:
                         clearConsole();
                         DaoDepartamento daoDepartamento = new DaoDepartamento();
-                        ServicioDepartamento servicioDepartamento = new ServicioDepartamento(daoDepartamento);
                         System.out.println("\nElija una opcion para Departamento: " +
                                 "\n Insertar: 1" +
                                 "\n Leer: 2" +
@@ -109,6 +113,7 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("Leer departamento");
+                                System.out.println("Introduzca el codigo del departamento a buscar");
                                 System.out.println(servicioDepartamento.read(sc.nextLine()));
                                 break;
                             case 3:
@@ -122,8 +127,7 @@ public class Main {
 
                                 System.out.println("Eliminar departamento");
                                 System.err.println("Introduzca el codigo del departamento a eliminar");
-                                String codDelete = sc.nextLine();
-                                daoDepartamento.delete(codDelete);
+                                servicioDepartamento.delete(sc.nextLine());
                                 break;
                             default:
                                 System.out.println("Opción no válida");
@@ -133,6 +137,7 @@ public class Main {
 
                     case 3:
                         clearConsole();
+                        
                         DaoEdificio edificio = new DaoEdificio();
                         System.out.println("\nElija una opcion para Departamento: " +
                                 "\n Insertar: 1" +
@@ -146,24 +151,23 @@ public class Main {
                         switch (eleccion) {
                             case 1:
                                 System.out.println("Insertar edificio");
-                                edificio.create(edificio.crearEdificio());
+                                servicioEdificio.create(edificio.crearEdificio());
                                 break;
                             case 2:
                                 System.out.println("Leer edificio");
                                 System.out.println("Introduzca el codigo del edificio a buscar");
-                                String cod = sc.nextLine();
-                                System.out.println(edificio.read(cod));
-                                break;
+                                System.out.println(servicioEdificio.read(sc.nextLine()));
+                                break; 
                             case 3:
                                 System.out.println("Actualizar edificio");
                                 System.out.println("Introduzca los datos del edificio a actualizar");
-                                edificio.update(edificio.crearEdificio());
+                                edificio.crearEdificio();
+                                servicioEdificio.update(edificio.crearEdificio());
                                 break;
                             case 4:
                                 System.out.println("Eliminar edificio");
                                 System.err.println("Introduzca el codigo del edificio a eliminar");
-                                String codDelete = sc.nextLine();
-                                edificio.delete(codDelete);
+                                servicioAlumno.delete(sc.next());
                                 break;
                             default:
                                 System.out.println("Opción no válida");
@@ -184,24 +188,23 @@ public class Main {
                         switch (eleccion) {
                             case 1:
                                 System.out.println("Insertar aula");
-                                daoAula.create(daoAula.crearAula());
+                                servicioAula.create(daoAula.crearAula());
                                 break;
                             case 2:
                                 System.out.println("Leer aula");
                                 System.out.println("Introduzca el numero del aula a buscar");
                                 String num = sc.nextLine();
-                                System.out.println(daoAula.read(num));
+                                System.out.println(servicioAula.read(num));
                                 break;
                             case 3:
                                 System.out.println("Actualizar aula");
                                 System.out.println("Introduzca los datos del aula a actualizar");
-                                daoAula.update(daoAula.crearAula());
+                                servicioAula.update(daoAula.crearAula());
                                 break;
                             case 4:
                                 System.out.println("Eliminar aula");
                                 System.err.println("Introduzca el numero del aula a eliminar");
-                                String numDelete = sc.nextLine();
-                                daoAula.delete(numDelete);
+                                servicioAula.delete(sc.nextLine());
                                 break;
                             default:
                                 System.out.println("Opción no válida");
@@ -222,24 +225,22 @@ public class Main {
                         switch (eleccion) {
                             case 1:
                                 System.out.println("Insertar curso");
-                                daoCurso.create(daoCurso.crearCurso());
+                                servicioCurso.create(daoCurso.crearCurso());
                                 break;
                             case 2:
                                 System.out.println("Leer curso");
                                 System.out.println("Introduzca el codigo del curso a buscar");
-                                String cod = sc.nextLine();
-                                System.out.println(daoCurso.read(cod));
+                                System.out.println(servicioCurso.read(sc.nextLine())); 
                                 break;
                             case 3:
                                 System.out.println("Actualizar curso");
                                 System.out.println("Introduzca los datos del curso a actualizar");
-                                daoCurso.update(daoCurso.crearCurso());
+                                servicioCurso.update(daoCurso.crearCurso());
                                 break;
                             case 4:
                                 System.out.println("Eliminar curso");
                                 System.err.println("Introduzca el codigo del curso a eliminar");
-                                String codDelete = sc.nextLine();
-                                daoCurso.delete(codDelete);
+                                servicioCurso.delete(sc.nextLine());
                                 break;
                             default:
                                 System.out.println("Opción no válida");
@@ -260,24 +261,22 @@ public class Main {
                         switch (eleccion) {
                             case 1: 
                                 System.out.println("Insertar turno");
-                                daoTurno.create(daoTurno.crearTurno());
+                                servicioTurno.create(daoTurno.crearTurno());
                                 break;
                             case 2:
                                 System.out.println("Leer turno");
                                 System.out.println("Introduzca el codigo del turno a buscar");
-                                String cod = sc.nextLine();
-                                System.out.println(daoTurno.read(cod));
+                                System.out.println(servicioTurno.read(sc.nextLine()));
                                 break;
                             case 3:
                                 System.out.println("Actualizar turno");
                                 System.out.println("Introduzca los datos del turno a actualizar");
-                                daoTurno.update(daoTurno.crearTurno());
+                                servicioTurno.update(daoTurno.crearTurno());
                                 break;
                             case 4:
                                 System.out.println("Eliminar turno");
                                 System.err.println("Introduzca el codigo del turno a eliminar");
-                                String codDelete = sc.nextLine();
-                                daoTurno.delete(codDelete);
+                                servicioTurno.delete(sc.nextLine());
                                 break;
                             default:
                                 System.out.println("Opción no válida");

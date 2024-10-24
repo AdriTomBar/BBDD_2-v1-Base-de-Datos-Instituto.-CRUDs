@@ -7,7 +7,7 @@ public class ServicioDepartamento implements Servicio<Departamento, String> {
 
 	private DaoDepartamento daoDepartamento;
 	
-	public ServicioDepartamento(DaoDepartamento daoDepartamento) {
+	public ServicioDepartamento() {
 		this.daoDepartamento = daoDepartamento;
 	}
 	
