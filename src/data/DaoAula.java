@@ -51,6 +51,13 @@ public class DaoAula extends JdbcDao<Aula,String> {
         ps.setString(1, id);
         return ps;
     }
+
+    public Aula crearAula() {
+        Aula aula = new Aula();
+        aula.setNum_aula("A1");
+        aula.setCod_edificio("E1");
+        return aula;
+    }
     
 
 }

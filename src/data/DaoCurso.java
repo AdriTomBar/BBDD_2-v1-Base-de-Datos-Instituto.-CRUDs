@@ -54,4 +54,12 @@ public class DaoCurso extends JdbcDao<Curso,String>{
         return ps;
     }
 
+    public Curso crearCurso() {
+        Curso curso = new Curso();
+        curso.setCod_curso("C1");
+        curso.setNombre("Curso 1");
+        curso.setDescripcion("Descripcion del curso 1");
+        return curso;
+    }
+
 }

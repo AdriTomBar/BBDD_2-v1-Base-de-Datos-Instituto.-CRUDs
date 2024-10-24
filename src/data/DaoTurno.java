@@ -50,5 +50,12 @@ public class DaoTurno extends JdbcDao<Turno,String>{
         ps.setString(1, id);
         return ps;
     }
+
+    public Turno crearTurno() {
+        Turno turno = new Turno();
+        turno.setCod_turno("T1");
+        turno.setHorario("Matutino");
+        return turno;
+    }
     
 }

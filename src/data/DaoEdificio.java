@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import data.models.Edificio;
 
@@ -51,6 +52,16 @@ public class DaoEdificio extends JdbcDao<Edificio,String>{
         PreparedStatement ps = con.prepareStatement(SQL_DELETE);
         ps.setString(1, id);
         return ps;
+    }
+
+    public Edificio crearEdificio() {
+        Scanner sc = new Scanner(System.in);
+        Edificio edificio = new Edificio();
+        System.out.println("Introduzca el código del edificio: ");
+        edificio.setCod_edificio(sc.next());
+        System.out.println("Introduzca el nombre del edificio: ");
+        edificio.setNombre(sc.next());
+        return edificio;
     }
     
 }
