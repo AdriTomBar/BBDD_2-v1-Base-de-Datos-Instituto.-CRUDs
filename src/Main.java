@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Services.Servicio;
+import Services.ServicioDepartamento;
 import data.Dao;
 import data.DaoAlumno;
 import data.DaoAula;
@@ -89,6 +91,7 @@ public class Main {
                     case 2:
                         clearConsole();
                         DaoDepartamento daoDepartamento = new DaoDepartamento();
+                        ServicioDepartamento servicioDepartamento = new ServicioDepartamento(daoDepartamento);
                         System.out.println("\nElija una opcion para Departamento: " +
                                 "\n Insertar: 1" +
                                 "\n Leer: 2" +
@@ -102,22 +105,18 @@ public class Main {
                         switch (eleccionDep) {
                             case 1:
                                 System.out.println("Insertar departamento");
-                                Departamento departamento = daoDepartamento.crearDepartamento();
-                                daoDepartamento.create(departamento);
+                                servicioDepartamento.create(daoDepartamento.crearDepartamento());
                                 break;
                             case 2:
                                 System.out.println("Leer departamento");
-                                System.out.println("Introduzca el codigo del departamento a buscar");
-                                String cod = sc.nextLine();
-                                System.out.println(daoDepartamento.read(cod));
+                                System.out.println(servicioDepartamento.read(sc.nextLine()));
                                 break;
                             case 3:
                                 System.out.println("Actualizar departamento");
                                 System.out.println("Introduzca los datos del departamento a actualizar");
                                 Departamento departamentoUpdate = daoDepartamento.crearDepartamento();
-                                daoDepartamento.update(departamentoUpdate);
+                                servicioDepartamento.update(departamentoUpdate);
                                 System.out.println("----Departamento actualizado----");
-                                System.out.println(departamentoUpdate);
                                 break;
                             case 4:
 
