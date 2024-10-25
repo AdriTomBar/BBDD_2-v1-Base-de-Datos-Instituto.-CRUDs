@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import data.models.Curso;
 
@@ -55,10 +56,14 @@ public class DaoCurso extends JdbcDao<Curso,String>{
     }
 
     public Curso crearCurso() {
+        Scanner sc = new Scanner(System.in);
         Curso curso = new Curso();
-        curso.setCod_curso("C1");
-        curso.setNombre("Curso 1");
-        curso.setDescripcion("Descripcion del curso 1");
+        System.out.println("Introduzca el código del curso");
+        curso.setCod_curso(sc.nextLine());
+        System.out.println("Introduzca el nombre del curso");
+        curso.setNombre(sc.nextLine());
+        System.out.println("Introduzca la descripción del curso");
+        curso.setDescripcion(sc.nextLine());
         return curso;
     }
 

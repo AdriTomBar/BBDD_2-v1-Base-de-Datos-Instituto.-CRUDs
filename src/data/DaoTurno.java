@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import data.models.Turno;
 
@@ -52,9 +53,12 @@ public class DaoTurno extends JdbcDao<Turno,String>{
     }
 
     public Turno crearTurno() {
+        Scanner sc = new Scanner(System.in);
         Turno turno = new Turno();
-        turno.setCod_turno("T1");
-        turno.setHorario("Matutino");
+        System.out.println("Introduzca el código del turno");
+        turno.setCod_turno(sc.nextLine());
+        System.out.println("Introduzca el horario del turno");
+        turno.setHorario(sc.nextLine());
         return turno;
     }
     

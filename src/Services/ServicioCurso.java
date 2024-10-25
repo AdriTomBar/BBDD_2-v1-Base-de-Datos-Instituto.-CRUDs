@@ -7,7 +7,7 @@ public class ServicioCurso implements Servicio<Curso,String>{
 
     @Override
     public void create(Curso objeto) {
-        if (validarIdCurso(objeto) && evalidarDB(objeto) == true) {
+        if (validarIdCurso(objeto)==true && evalidarDB(objeto) == false) {
             DaoCurso daoCurso = new DaoCurso();
             daoCurso.create(objeto);
         } else {
@@ -62,7 +62,7 @@ public class ServicioCurso implements Servicio<Curso,String>{
 
     private Boolean validarIdCurso(Curso curso){
         if (curso.getCod_curso().length() < 1) {
-            throw new IllegalArgumentException("El id del curso debe tener al menos 1 caracter");
+            System.out.println("El id del curso debe tener al menos 1 caracter");
         }
         return true;
     }

@@ -6,7 +6,7 @@ public class ServicioTurno implements Servicio<Turno,String>{
 
     @Override
     public void create(Turno objeto) {
-        if (validarDB(objeto)) {
+        if (validarDB(objeto)==true) {
             DaoTurno daoTurno = new DaoTurno();
             daoTurno.create(objeto);
         }

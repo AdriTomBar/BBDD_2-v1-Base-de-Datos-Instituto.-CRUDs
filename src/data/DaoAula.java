@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import data.models.Aula;
 
@@ -53,9 +54,12 @@ public class DaoAula extends JdbcDao<Aula,String> {
     }
 
     public Aula crearAula() {
+        Scanner sc = new Scanner(System.in);
         Aula aula = new Aula();
-        aula.setNum_aula("A1");
-        aula.setCod_edificio("E1");
+        System.out.println("Introduzca el número de aula");
+        aula.setNum_aula(sc.nextLine());
+        System.out.println("Introduzca el código de edificio");
+        aula.setCod_edificio(sc.nextLine());
         return aula;
     }
     

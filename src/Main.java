@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -5,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import Services.*;
 import data.*;
+import data.models.Departamento;
 
 public class Main {
 
@@ -20,260 +23,180 @@ public class Main {
         ServicioCurso servicioCurso = new ServicioCurso();
         ServicioTurno servicioTurno = new ServicioTurno();
 
-        try (Scanner sc = new Scanner(System.in)) {
-            DaoAlumno daoAlumno = new DaoAlumno();
+        Scanner sc = new Scanner(System.in);
             probarConexion();
+
             while (true) {
-                System.out.println("\n-----Introduzca una opción para operar con los siguientes datos: -----" + //
-                        "\r\n" + //
-                        "\r\n" + "\n1. Alumno\r\n" + //
-                        "\r\n" + //
-                        "2. Departamento\r\n" + //
-                        "\r\n" + //
-                        "3. Edificio\r\n" + //
-                        "\r\n" + //
-                        "4. Aula\r\n" + //
-                        "\r\n" + //
-                        "5. Curso\r\n" + //
-                        "\r\n" + //
-                        "6. Turno\r\n" + //
-                        "\r\n" + //
-                        "0. Salir");
+                mostrarMenuPrincipal();
                 int eleccion = sc.nextInt();
+                sc.nextLine();
+                clearConsole();
 
                 switch (eleccion) {
-                    case 1:
-                        clearConsole();
-                        System.out.println("\n-----Elija una opcion para Alumno: -----" +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4" +
-                                "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-
-                            case 1:
-                                System.out.println("Insertar alumno");
-                                servicioAlumno.create(daoAlumno.crearAlumno());
-                                break;
-                            case 2:
-                                System.out.println("Leer alumno");
-                                System.out.println("Introduzca el nrp del alumno a buscar");
-                                System.out.println(servicioAlumno.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar alumno");
-                                servicioAlumno.update(daoAlumno.crearAlumno());
-                                break;
-                            case 4:
-                                System.out.println("Eliminar alumno");
-                                servicioAlumno.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                        break;
-
-                    case 2:
-                        clearConsole();
-                        DaoDepartamento daoDepartamento = new DaoDepartamento();
-                        System.out.println("\nElija una opcion para Departamento: " +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4"
-                                + "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-                            case 1:
-                                System.out.println("Insertar departamento");
-                                servicioDepartamento.create(daoDepartamento.crearDepartamento());
-                                break;
-                            case 2:
-                                System.out.println("Leer departamento");
-                                System.out.println("Introduzca el codigo del departamento a buscar");
-                                System.out.println(servicioDepartamento.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar departamento");
-                                System.out.println("Introduzca los datos del departamento a actualizar");
-                                Departamento departamentoUpdate = daoDepartamento.crearDepartamento();
-                                servicioDepartamento.update(departamentoUpdate);
-                                System.out.println("----Departamento actualizado----");
-                                break;
-                            case 4:
-
-                                System.out.println("Eliminar departamento");
-                                System.err.println("Introduzca el codigo del departamento a eliminar");
-                                servicioDepartamento.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                        break;
-
-                    case 3:
-                        clearConsole();
-                        DaoEdificio edificio = new DaoEdificio();
-                        System.out.println("\nElija una opcion para Edificio: " +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4"
-                                + "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-                            case 1:
-                                System.out.println("Insertar edificio");
-                                servicioEdificio.create(edificio.crearEdificio());
-                                break;
-                            case 2:
-                                System.out.println("Leer edificio");
-                                System.out.println("Introduzca el codigo del edificio a buscar");
-                                System.out.println(servicioEdificio.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar edificio");
-                                System.out.println("Introduzca los datos del edificio a actualizar");
-                                edificio.crearEdificio();
-                                servicioEdificio.update(edificio.crearEdificio());
-                                break;
-                            case 4:
-                                System.out.println("Eliminar edificio");
-                                System.err.println("Introduzca el codigo del edificio a eliminar");
-                                servicioAlumno.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    case 4:
-                        clearConsole();
-                        DaoAula daoAula = new DaoAula();
-                        System.out.println("\nElija una opcion para Aula: " +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4"
-                                + "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-                            case 1:
-                                System.out.println("Insertar aula");
-                                servicioAula.create(daoAula.crearAula());
-                                break;
-                            case 2:
-                                System.out.println("Leer aula");
-                                System.out.println("Introduzca el numero del aula a buscar");
-                                System.out.println(servicioAula.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar aula");
-                                System.out.println("Introduzca los datos del aula a actualizar");
-                                servicioAula.update(daoAula.crearAula());
-                                break;
-                            case 4:
-                                System.out.println("Eliminar aula");
-                                System.err.println("Introduzca el numero del aula a eliminar");
-                                servicioAula.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    case 5:
-                        clearConsole();
-                        DaoCurso daoCurso = new DaoCurso();
-                        System.out.println("\nElija una opcion para Curso: " +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4"
-                                + "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-                            case 1:
-                                System.out.println("Insertar curso");
-                                servicioCurso.create(daoCurso.crearCurso());
-                                break;
-                            case 2:
-                                System.out.println("Leer curso");
-                                System.out.println("Introduzca el codigo del curso a buscar");
-                                System.out.println(servicioCurso.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar curso");
-                                System.out.println("Introduzca los datos del curso a actualizar");
-                                servicioCurso.update(daoCurso.crearCurso());
-                                break;
-                            case 4:
-                                System.out.println("Eliminar curso");
-                                System.err.println("Introduzca el codigo del curso a eliminar");
-                                servicioCurso.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    case 6:
-                        clearConsole();
-                        DaoTurno daoTurno = new DaoTurno();
-                        System.out.println("\nElija una opcion para Turno: " +
-                                "\n Insertar: 1" +
-                                "\n Leer: 2" +
-                                "\n Actualizar: 3" +
-                                "\n Eliminar: 4"
-                                + "\n Salir: 0");
-
-                        switch (sc.nextInt()) {
-
-                            case 1:
-                                System.out.println("Insertar turno");
-                                servicioTurno.create(daoTurno.crearTurno());
-                                break;
-                            case 2:
-                                System.out.println("Leer turno");
-                                System.out.println("Introduzca el codigo del turno a buscar");
-                                System.out.println(servicioTurno.read(sc.next()));
-                                break;
-                            case 3:
-                                System.out.println("Actualizar turno");
-                                System.out.println("Introduzca los datos del turno a actualizar");
-                                servicioTurno.update(daoTurno.crearTurno());
-                                break;
-                            case 4:
-                                System.out.println("Eliminar turno");
-                                System.err.println("Introduzca el codigo del turno a eliminar");
-                                servicioTurno.delete(sc.next());
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    case (0):
-                        clearConsole();
-                        System.out.println("Saliendo del programa...");
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println("Opción no válida");
-                        break;
+                    case 1 -> gestionarAlumno(sc, servicioAlumno);
+                    case 2 -> gestionarDepartamento(sc, servicioDepartamento);
+                    case 3 -> gestionarEdificio(sc, servicioEdificio);
+                    case 4 -> gestionarAula(sc, servicioAula);
+                    case 5 -> gestionarCurso(sc, servicioCurso);
+                    case 6 -> gestionarTurno(sc, servicioTurno);
+                    case 0 -> salirPrograma();
+                    default -> System.out.println("Opción no válida");
                 }
-
             }
         }
+    
 
+    private static void mostrarMenuPrincipal() {
+        System.out.println("""
+                \n-----Introduzca una opción para operar con los siguientes datos: -----
+                1. Alumno
+                2. Departamento
+                3. Edificio
+                4. Aula
+                5. Curso
+                6. Turno
+                0. Salir
+                """);
+    }
+
+    private static void gestionarAlumno(Scanner sc, ServicioAlumno servicioAlumno) {
+        DaoAlumno daoAlumno = new DaoAlumno();
+        mostrarMenuGestion("Alumno");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion) {
+            case 1 -> servicioAlumno.create(daoAlumno.crearAlumno());
+            case 2 -> {
+                System.out.println("Introduzca el nrp del alumno a buscar");
+                System.out.println(servicioAlumno.read(sc.next()));
+            }
+            case 3 -> servicioAlumno.update(daoAlumno.crearAlumno());
+            case 4 -> {
+                System.out.println("Introduzca el nrp del alumno a eliminar");
+                servicioAlumno.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void gestionarDepartamento(Scanner sc, ServicioDepartamento servicioDepartamento) {
+        DaoDepartamento daoDepartamento = new DaoDepartamento();
+        mostrarMenuGestion("Departamento");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion) {
+            case 1 -> servicioDepartamento.create(daoDepartamento.crearDepartamento());
+            case 2 -> {
+                System.out.println("Introduzca el código del departamento a buscar");
+                System.out.println(servicioDepartamento.read(sc.next()));
+            }
+            case 3 -> servicioDepartamento.update(daoDepartamento.crearDepartamento());
+            case 4 -> {
+                System.out.println("Introduzca el código del departamento a eliminar");
+                servicioDepartamento.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void gestionarEdificio(Scanner sc, ServicioEdificio servicioEdificio) {
+        DaoEdificio daoEdificio = new DaoEdificio();
+        mostrarMenuGestion("Edificio");
+        int opcion = sc.nextInt();
+
+        switch (opcion) {
+            case 1 -> servicioEdificio.create(daoEdificio.crearEdificio());
+            case 2 -> {
+                System.out.println("Introduzca el código del edificio a buscar");
+                System.out.println(servicioEdificio.read(sc.next()));
+            }
+            case 3 -> servicioEdificio.update(daoEdificio.crearEdificio());
+            case 4 -> {
+                System.out.println("Introduzca el código del edificio a eliminar");
+                servicioEdificio.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void gestionarAula(Scanner sc, ServicioAula servicioAula) {
+        DaoAula daoAula = new DaoAula();
+        mostrarMenuGestion("Aula");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion) {
+            case 1 -> servicioAula.create(daoAula.crearAula());
+            case 2 -> {
+                System.out.println("Introduzca el número del aula a buscar");
+                System.out.println(servicioAula.read(sc.next()));
+            }
+            case 3 -> servicioAula.update(daoAula.crearAula());
+            case 4 -> {
+                System.out.println("Introduzca el número del aula a eliminar");
+                servicioAula.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void gestionarCurso(Scanner sc, ServicioCurso servicioCurso) {
+        DaoCurso daoCurso = new DaoCurso();
+        mostrarMenuGestion("Curso");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+        switch (opcion) {
+            case 1 -> servicioCurso.create(daoCurso.crearCurso());
+            case 2 -> {
+                System.out.println("Introduzca el código del curso a buscar");
+                System.out.println(servicioCurso.read(sc.next()));
+            }
+            case 3 -> servicioCurso.update(daoCurso.crearCurso());
+            case 4 -> {
+                System.out.println("Introduzca el código del curso a eliminar");
+                servicioCurso.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void gestionarTurno(Scanner sc, ServicioTurno servicioTurno) {
+        DaoTurno daoTurno = new DaoTurno();
+        mostrarMenuGestion("Turno");
+        int opcion = sc.nextInt();
+        
+        switch (opcion) {
+            case 1 -> servicioTurno.create(daoTurno.crearTurno());
+            case 2 -> {
+                System.out.println("Introduzca el código del turno a buscar");
+                System.out.println(servicioTurno.read(sc.next()));
+            }
+            case 3 -> servicioTurno.update(daoTurno.crearTurno());
+            case 4 -> {
+                System.out.println("Introduzca el código del turno a eliminar");
+                servicioTurno.delete(sc.next());
+            }
+            default -> System.out.println("Opción no válida");
+        }
+    }
+
+    private static void mostrarMenuGestion(String entidad) {
+        System.out.printf("""
+                \nElija una opción para %s:
+                1. Insertar
+                2. Leer
+                3. Actualizar
+                4. Eliminar
+                0. Salir
+                """, entidad);
     }
 
     private static void clearConsole() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -282,7 +205,14 @@ public class Main {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             System.out.println("Conexión exitosa a la base de datos");
         } catch (SQLException e) {
+            System.err.println("Error en la conexión a la base de datos");
             e.printStackTrace();
         }
     }
+
+    private static void salirPrograma() {
+        System.out.println("Saliendo del programa...");
+        System.exit(0);
+    }
 }
+
