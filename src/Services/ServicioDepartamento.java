@@ -30,6 +30,7 @@ public class ServicioDepartamento implements Servicio<Departamento, String> {
 	public void update(Departamento objeto) {
 		if (validarDepartamento(objeto) && validarDB(objeto) == false) {
 			daoDepartamento.update(objeto);
+			System.out.println("Departamento actualizado");
 		} else {
 			System.out.println("No se pudo actualizar el departamento");
 		}
@@ -56,7 +57,7 @@ public class ServicioDepartamento implements Servicio<Departamento, String> {
 	private boolean validarDB(Departamento departamento) {
 		String cod_departamento = departamento.getCod_departamento();
 		if (daoDepartamento.read(cod_departamento) != null) {
-			System.out.println("El departamento ya existe");
+			System.out.println("El departamento existe en la base de datos");
 			return false;
 		}
 		return true;

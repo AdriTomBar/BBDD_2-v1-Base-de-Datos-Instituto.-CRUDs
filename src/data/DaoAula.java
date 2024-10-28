@@ -11,7 +11,7 @@ import data.models.Aula;
 public class DaoAula extends JdbcDao<Aula,String> {
     private String SQL_INSERT = "INSERT INTO aula values(?,?)";
     private String SQL_DELETE = "DELETE FROM aula where num_aula=?";
-    private String SQL_UPDATE = "UPDATE aula set cod_edificio=?,where num_aula=?";
+    private String SQL_UPDATE = "UPDATE aula set cod_edificio=? where num_aula=?";
     private String SQL_READ = "SELECT * FROM aula where num_aula=?";
     @Override
     protected PreparedStatement getInsertStatement(Aula model, Connection con) throws SQLException {

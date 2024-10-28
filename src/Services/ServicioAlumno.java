@@ -5,8 +5,12 @@ import data.models.Alumno;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ServicioAlumno implements Servicio<Alumno, String> {
@@ -15,18 +19,19 @@ public class ServicioAlumno implements Servicio<Alumno, String> {
 
     @Override
     public void create(Alumno objeto) {
-        if (validarDB(objeto) == true && comprobarCp(objeto) == true) {
+        if (validarDB(objeto.getNre()) && comprobarFecha(objeto.getFecha_nac()) && comprobarCodPostal(objeto)) {
             daoAlumno.create(objeto);
             System.out.println("El alumno se ha creado en la base de datos");
+        } else {
+            System.out.println(
+                    "No se pudo crear el alumno, comprueba que el alumno no exista en la base de datos y que el código postal sea correcto");
         }
-        System.out.println("No se pudo crear el alumno, comprueba que el alumno no exista en la base de datos y que el código postal sea correcto");
     }
 
     @Override
     public Alumno read(String identificador) {
-        if (validarDB(identificador)) {
+        if (!validarDB(identificador)) {
             Alumno a = daoAlumno.read(identificador);
-            System.out.println("El alumno se ha leido de la base de datos");
             return a;
         }
         return null;
@@ -34,74 +39,72 @@ public class ServicioAlumno implements Servicio<Alumno, String> {
 
     @Override
     public void update(Alumno objeto) {
-        if (validarDB(objeto) == false && comprobarCp(objeto) == true) {
+        if (!validarDB(objeto.getNre()) && comprobarFecha(objeto.getFecha_nac()) && comprobarCodPostal(objeto)) {
             daoAlumno.update(objeto);
             System.out.println("El alumno se ha actualizado en la base de datos");
+        } else {
+            System.out.println("No se pudo actualizar el alumno, comprueba que el alumno exista en la base de datos");
+            
         }
-        System.out.println("No se pudo actualizar el alumno, comprueba que el alumno exista en la base de datos y que el código postal sea correcto");
     }
 
     @Override
     public void delete(String identificador) {
-        if (validarDB(identificador)) {
+        if (!validarDB(identificador)) {
             daoAlumno.delete(identificador);
-            System.out.println("El alumno se ha eliminado de la base de datos");
         }
     }
 
-    private Boolean validarDB(Alumno alumno) {
-        if (alumno.getNre() != null) {
+    private Boolean validarDB(String nre) {
+        if (daoAlumno.read(nre) != null) {
             System.out.println("Alumno registrado en la base de datos");
             return false;
         }
         return true;
     }
 
-    private Boolean validarDB(String alumno) {
-        DaoAlumno daoAlumno = new DaoAlumno();
-        if (daoAlumno.read(alumno) != null) {
-            System.out.println("Alumno registrado en la base de datos");
+    private boolean comprobarFecha(String fechaNac) {
+        try {
+            LocalDate fecha = LocalDate.parse(fechaNac, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            // Verificar que la fecha no sea mayor a la fecha actual
+            if (fecha.isAfter(LocalDate.now())) {
+                return false;
+            }
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
         }
-        return true;
+    }
+
+    private boolean comprobarCodPostal(Alumno a) {
+        String sql = "SELECT * FROM alumno WHERE cp = ?";
+        try (Connection con = getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, a.getCp().trim());
+            ResultSet rs = stmt.executeQuery();
+            try {
+                if (rs.next()) {
+                    System.out.println("El código postal existe en la base de datos");
+                    return true;
+                }
+                System.out.println("El código postal no existe en la base de datos");
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        } catch (SQLException e) {
+            return false;
+
+        }
     }
 
     protected Connection getConnection() throws SQLException {
         String URL = "jdbc:mysql://localhost:3306/instituto";
         String USER = "adrian";
         String PASSWORD = "mysqlAdmin";
-		return DriverManager.getConnection(URL, USER, PASSWORD);
-	}
-
-    private boolean comprobarCp(Alumno a){
-        ArrayList<String> cps = consultaCod_pos();
-        for (String cp : cps) {
-            if (cp.equals(a.getCp())) {
-                return true;
-            }
-        }
-        return false;
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
-
-    private ArrayList<String> consultaCod_pos(){
-        ArrayList<String> cps = new ArrayList<>();  
-
-        String sql = "SELECT cp from alumno";
-
-        try (Connection con = getConnection()) {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                System.out.println(rs.getString("cp"));
-                cps.add(rs.getString("cp"));
-            }
-            return cps;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }      
-        return cps;                                                             
-    }
-
 }
-    

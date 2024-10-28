@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import Services.*;
 import data.*;
-import data.models.Departamento;
 
 public class Main {
 
@@ -69,7 +68,11 @@ public class Main {
             case 1 -> servicioAlumno.create(daoAlumno.crearAlumno());
             case 2 -> {
                 System.out.println("Introduzca el nrp del alumno a buscar");
-                System.out.println(servicioAlumno.read(sc.next()));
+                String nrp = sc.nextLine();
+                if (servicioAlumno.read(nrp) == null){
+                    System.out.println("El alumno no existe en la base de datos");
+                }else
+                System.out.println(servicioAlumno.read(nrp));
             }
             case 3 -> servicioAlumno.update(daoAlumno.crearAlumno());
             case 4 -> {
