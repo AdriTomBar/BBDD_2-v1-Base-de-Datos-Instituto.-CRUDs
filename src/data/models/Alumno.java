@@ -3,23 +3,68 @@ package data.models;
 import java.sql.Date;
 
 public class Alumno {
+    @NotNull(message = "El NRE no puede ser nulo")
+    @size(min = 7, max = 7, message = "El NRE debe tener entre 1 y 10 caracteres")
+    @Pattern(regexp = "^[0-9]*$", message = "El NRE debe ser un número")
     private String nre;
+    @NotNull(message = "El nombre no puede ser nulo")
+    @size(min = 1, max = 50, message = "El nombre debe tener entre 1 y 50 caracteres")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El nombre no puede contener números")
     private String nombre;
+    @NotNull(message = "El primer apellido no puede ser nulo")
+    @size(min = 1, max = 50, message = "El primer apellido debe tener entre 1 y 50 caracteres")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El apellido no puede contener números")
     private String apellido1;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El apellido no puede contener números")
+    @size(min = 1, max = 50, message = "El segundo apellido debe tener entre 1 y 50 caracteres")
     private String apellido2;
+    @NotNull(message = "El DNI no puede ser nulo")
+    @size(min = 9, max = 9, message = "El DNI debe tener 9 caracteres")
+    @Pattern(regexp = "^[0-9]{8}[A-Z]", message = "El DNI debe ser un número seguido de una letra mayúscula")
     private String dni;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El tipo de vía no puede contener números")
+    @NotNull(message = "El tipo de vía no puede ser nulo")
     private String tipo_via;
+    @NotNull(message = "El nombre de la vía no puede ser nulo")
+    @size(min = 1, max = 50, message = "El nombre de la vía debe tener entre 1 y 50 caracteres")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El nombre de la vía no puede contener números")
     private String nombre_via;
+    @NotNull(message = "El número no puede ser nulo")
+    @size(min = 1, max = 10, message = "El número debe tener entre 1 y 10 caracteres")
+    @Pattern(regexp = "^[0-9]*$", message = "El número debe ser un número")
     private String numero;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "La escalera no puede contener números")
+    @Null
     private String escalera;
+    @Null
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El piso no puede contener números")
     private String piso;
+    @Null
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "La puerta no puede contener números")
     private String puerta;
+    @NotNull(message = "El código postal no puede ser nulo")
+    @size(min = 5, max = 5, message = "El código postal debe tener 5 caracteres")
+    @Pattern(regexp = "^[0-9]*$", message = "El código postal debe ser un número")
     private String cp;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El país no puede contener números")
+    @NotNull(message = "El país no puede ser nulo")
     private String pais;
+    @Null
+    @size(min = 9, max = 9, message = "El teléfono fijo debe tener 9 caracteres")
     private String tlfn_fijo;
+    @NotNull(message = "El teléfono móvil no puede ser nulo")
+    @size(min = 9, max = 9, message = "El teléfono móvil debe tener 9 caracteres")
     private String tlfn_movil;
+    @NotNull(message = "El email no puede ser nulo")
+    @size(min = 1, max = 100, message = "El email debe tener entre 1 y 100 caracteres")
     private String email;
+    @NotNull(message = "La fecha de nacimiento no puede ser nula")
+    @size(min = 10, max = 10, message = "La fecha de nacimiento debe tener 10 caracteres")
+    @Pattern(regexp = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$", message = "La fecha de nacimiento debe tener el formato dd/mm/yyyy")
     private String fecha_nac;
+    @NotNull(message = "El tutor no puede ser nulo")
+    @size(min = 1, max = 50, message = "El tutor debe tener entre 1 y 50 caracteres")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "El tutor no puede contener números")
     private String tutor;
     
     public Alumno(String nre, String nombre, String apellido1, String apellido2, String dni, String tipo_via,
